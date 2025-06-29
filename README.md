@@ -42,7 +42,6 @@ git clone https://github.com/rom98759/42-Slot-Conflict-Avoider.git
 4. Clique sur **"Charger l’extension non empaquetée"**
 5. Sélectionne le dossier cloné
 6. L’extension est maintenant installée et active !
-7. Va sur l’intra dans un projet pour te faire corriger et magique !
 
 ---
 
@@ -76,4 +75,4 @@ git clone https://github.com/rom98759/42-Slot-Conflict-Avoider.git
 
 ## 📝 Licence
 
-MIT
+Ce projet est sous licence MIT - consulte le fichier [LICENSE](LICENSE) pour plus de détails.
