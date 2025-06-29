@@ -18,7 +18,6 @@ window.addTestSlotFC3 = function (beginAt, endAt, title = 'Tes creneaux', id = '
 
 	// Vérification si le créneau a déjà été injecté
 	if (window.injectedSlotIds.has(slotId)) {
-		console.log('⏭️ Slot déjà injecté, ignoré:', slotId);
 		return;
 	}
 
@@ -39,7 +38,6 @@ window.addTestSlotFC3 = function (beginAt, endAt, title = 'Tes creneaux', id = '
 	if (window.$ && $('#calendar').fullCalendar) {
 		$('#calendar').fullCalendar('renderEvent', slot, true);
 		window.injectedSlotIds.add(slotId); // Marquer le créneau comme injecté
-		console.log('✅ Slot injecté:', slot);
 	} else {
 		console.error('❌ FullCalendar v3 non détecté.');
 	}
@@ -113,7 +111,6 @@ async function loadCalendarData() {
 		}
 	});
 
-	console.log(`✅ ${profileSlots.length} créneaux profil synchronisés.`);
 }
 
 // 🚀 Chargement automatique des créneaux au rafraîchissement de la page
@@ -130,7 +127,6 @@ $(document).on('click', '.fc-event.custom-slot-class', function (e) {
 
 // 📌 Injection du bouton pour charger les créneaux
 function injectButton() {
-	console.log('%c[Inject.js]', 'color: green', 'Code injecté dans le contexte de la page');
 
 	const button = document.createElement('button');
 	button.innerText = 'Charger mes créneaux';

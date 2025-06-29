@@ -57,7 +57,7 @@ git clone https://github.com/rom98759/42-Slot-Conflict-Avoider.git
 
 ## 📷 Aperçu
 
-*(ajoute une capture si tu veux)*
+![Aperçu de l'extension](image.png)
 
 ---
 

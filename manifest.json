@@ -1,22 +1,38 @@
 {
 	"manifest_version": 3,
-	"name": "Inject Button",
+	"name": "42 Slot Conflict Avoider",
 	"version": "1.1",
-	"description": "Injecte un bouton sur intra 42",
+	"description": "Affiche tes créneaux de correcteur dans les calendriers de projet de l'intra 42 pour éviter les conflits.",
+	"icons": {
+		"16": "icon-16.png",
+		"128": "icon-128.png"
+	},
 	"host_permissions": [
 		"https://projects.intra.42.fr/projects/*/slots"
 	],
 	"content_scripts": [
 		{
-			"matches": ["https://projects.intra.42.fr/*"],
-			"js": ["content.js"],
+			"matches": [
+				"https://projects.intra.42.fr/*"
+			],
+			"js": [
+				"content.js"
+			],
 			"run_at": "document_idle"
 		}
 	],
 	"web_accessible_resources": [
 		{
-			"resources": ["inject.js"],
-			"matches": ["https://projects.intra.42.fr/*"]
+			"resources": [
+				"inject.js"
+			],
+			"matches": [
+				"https://projects.intra.42.fr/*"
+			]
 		}
-	]
+	],
+	"action": {
+		"default_title": "42 Slot Conflict Avoider",
+		"default_icon": "icon-128.png"
+	}
 }
