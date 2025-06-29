@@ -4,40 +4,40 @@ function transformDateToCustomFormat(isoDate) {
 	return date.format('YYYY-MM-DDTHH:mm:ss');
 }
 
-// 📌 Ensemble pour suivre les IDs des créneaux injectés
+// 📌 Ensemble pour suivre les IDs des slots injectés
 window.injectedSlotIds = window.injectedSlotIds || new Set();
 
-// 📌 Fonction pour ajouter un créneau visuellement dans FullCalendar v3
-window.addTestSlotFC3 = function (beginAt, endAt, title = 'Tes creneaux', id = 'test-slot') {
+// 📌 Fonction pour ajouter un slot visuellement dans FullCalendar v3
+window.addTestSlotFC3 = function (beginAt, endAt, title = 'Mes slots', id = 'test-slot') {
 	// Transformation des dates au format ISO
 	const start_date_transformée = transformDateToCustomFormat(beginAt);
 	const end_date_transformée = transformDateToCustomFormat(endAt);
 
-	// Génération d'un ID unique pour le créneau incluant la date de début
+	// Génération d'un ID unique pour le slot incluant la date de début
 	const slotId = `${id}-${start_date_transformée}`;
 
-	// Vérification si le créneau a déjà été injecté
+	// Vérification si le slot a déjà été injecté
 	if (window.injectedSlotIds.has(slotId)) {
 		return;
 	}
 
-	// Définition des propriétés du créneau
+	// Définition des propriétés du slot
 	const slot = {
 		id: slotId,
-		title, // Texte "Tes creneaux"
+		title, // Texte "Mes slots"
 		start: start_date_transformée,
 		end: end_date_transformée,
 		className: 'custom-slot-class',
 		allDay: false,
-		editable: false, // Rendre le créneau non modifiable
+		editable: false, // Rendre le slot non modifiable
 		eventClick: null, // Désactiver l'action de clic
 		url: 'javascript:void(0)' // 👈 pour éviter redirection
 	};
 
-	// Ajout du créneau au calendrier
+	// Ajout du slot au calendrier
 	if (window.$ && $('#calendar').fullCalendar) {
 		$('#calendar').fullCalendar('renderEvent', slot, true);
-		window.injectedSlotIds.add(slotId); // Marquer le créneau comme injecté
+		window.injectedSlotIds.add(slotId); // Marquer le slot comme injecté
 	} else {
 		console.error('❌ FullCalendar v3 non détecté.');
 	}
@@ -60,7 +60,7 @@ function showToast(message) {
 	}, 3000);
 }
 
-// 📌 Style global injecté pour tous les créneaux personnalisés
+// 📌 Style global injecté pour tous les slots personnalisés
 (function injectGlobalStyles() {
 	const style = document.createElement('style');
 	style.textContent = `
@@ -75,14 +75,14 @@ function showToast(message) {
 	document.head.appendChild(style);
 })();
 
-// 📦 Fonction pour récupérer les créneaux de profil via une API
+// 📦 Fonction pour récupérer les slots de profil via une API
 async function fetchProfile(start, end) {
 	const url = `https://profile.intra.42.fr/slots.json?start=${start}&end=${end}`;
 	const response = await fetch(url, { credentials: 'include' });
 	return response.ok ? response.json() : [];
 }
 
-// 🚀 Fonction pour charger et afficher les créneaux dans le calendrier
+// 🚀 Fonction pour charger et afficher les slots dans le calendrier
 async function loadCalendarData() {
 	const today = new Date();
 	const start = today.toISOString().split('T')[0];
@@ -95,27 +95,27 @@ async function loadCalendarData() {
 		return;
 	}
 
-	// Supprimer tous les anciens créneaux injectés
+	// Supprimer tous les anciens slots injectés
 	window.injectedSlotIds.forEach(id => {
 		$('#calendar').fullCalendar('removeEvents', id);
 	});
 	window.injectedSlotIds.clear();
 
-	// Réinjecter les nouveaux créneaux
+	// Réinjecter les nouveaux slots
 	profileSlots.forEach(slot => {
 		if (slot.start && slot.end) {
 			if (slot.title != "Available")
-				addTestSlotFC3(slot.start, slot.end, 'Tes créneaux (pris)', slot.id || `slot-${Date.now()}-${Math.random()}`);
+				addTestSlotFC3(slot.start, slot.end, 'Mes slots (pris)', slot.id || `slot-${Date.now()}-${Math.random()}`);
 			else
-				addTestSlotFC3(slot.start, slot.end, 'Tes créneaux', slot.id || `slot-${Date.now()}-${Math.random()}`);
+				addTestSlotFC3(slot.start, slot.end, 'Mes slots', slot.id || `slot-${Date.now()}-${Math.random()}`);
 		}
 	});
 
 }
 
-// 🚀 Chargement automatique des créneaux au rafraîchissement de la page
+// 🚀 Chargement automatique des slots au rafraîchissement de la page
 (async function autoLoadCalendarData() {
-	console.log('%c[Inject.js]', 'color: blue', 'Chargement automatique des créneaux au rafraîchissement de la page');
+	console.log('%c[Inject.js]', 'color: blue', 'Chargement automatique des slots au rafraîchissement de la page');
 	await loadCalendarData();
 })();
 
@@ -125,11 +125,11 @@ $(document).on('click', '.fc-event.custom-slot-class', function (e) {
 	e.preventDefault();
 });
 
-// 📌 Injection du bouton pour charger les créneaux
+// 📌 Injection du bouton pour charger les slots
 function injectButton() {
 
 	const button = document.createElement('button');
-	button.innerText = 'Charger mes créneaux';
+	button.innerText = 'Charger mes slots';
 	Object.assign(button.style, {
 		position: 'fixed',
 		bottom: '20px',
@@ -146,7 +146,7 @@ function injectButton() {
 	});
 
 	button.addEventListener('click', () => {
-		showToast('Chargement des créneaux en cours...');
+		showToast('Chargement des slots en cours...');
 		loadCalendarData();
 	});
 
