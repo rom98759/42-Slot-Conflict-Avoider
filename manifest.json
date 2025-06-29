@@ -1,0 +1,22 @@
+{
+	"manifest_version": 3,
+	"name": "Inject Button",
+	"version": "1.1",
+	"description": "Injecte un bouton sur intra 42",
+	"host_permissions": [
+		"https://projects.intra.42.fr/projects/*/slots"
+	],
+	"content_scripts": [
+		{
+			"matches": ["https://projects.intra.42.fr/*"],
+			"js": ["content.js"],
+			"run_at": "document_idle"
+		}
+	],
+	"web_accessible_resources": [
+		{
+			"resources": ["inject.js"],
+			"matches": ["https://projects.intra.42.fr/*"]
+		}
+	]
+}
